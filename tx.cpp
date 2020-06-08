@@ -385,8 +385,7 @@ namespace tx_tool{
   void tx::enumerateAll(const uint pos, const std::string str, std::vector<std::pair<size_t, std::pair<std::string, uint> > >& ret) const{
     const uint nodeId = loud.rank(pos-1,1)-1;
     if (terminal.getBit(nodeId)){
-      std::pair<std::string, uint> tmp(str,  terminal.rank(nodeId,1)-1);
-      ret.push_back(std::make_pair<size_t, std::pair<std::string, uint> >(str.size(), tmp));
+      ret.push_back(std::make_pair(str.size(), std::make_pair(str,  terminal.rank(nodeId,1)-1)));
     }
 
     uint curPos = pos;
