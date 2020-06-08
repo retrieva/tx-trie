@@ -79,7 +79,7 @@ int main(int argc, char* argv[]){
       if (id == tx_tool::tx::NOTFOUND){
 	printf("not found\n");
       } else {
-	printf("id:%u len:%u\n", id, retLen);
+	printf("id:%u len:%lu\n", id, retLen);
       }
     }
 

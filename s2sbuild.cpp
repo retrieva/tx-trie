@@ -56,7 +56,7 @@ int main(int argc, char* argv[]){
     while (getline(ifs, line)){
       const size_t p = line.find('\t');
       if (p == std::string::npos){
-	fprintf(stderr, "WARNING: cannot find tab in line in %s (lineno=%u)\n", line.c_str(), lineno);
+	fprintf(stderr, "WARNING: cannot find tab in line in %s (lineno=%lu)\n", line.c_str(), lineno);
 	continue;
       }
       wordList1.push_back(line.substr(0, p));

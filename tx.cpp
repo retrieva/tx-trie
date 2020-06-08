@@ -44,7 +44,7 @@ namespace tx_tool{
     sort(wordList.begin(),wordList.end());
     const size_t origWordNum = wordList.size();
     wordList.erase(unique(wordList.begin(),wordList.end()),wordList.end());
-    int keyNum = (int)wordList.size();
+    size_t keyNum = wordList.size();
     if (keyNum != origWordNum){
       resultLog << "shrink word list " << origWordNum << " -> " << keyNum << std::endl;
     } else {
@@ -81,7 +81,7 @@ namespace tx_tool{
 
     while (!q.empty()){
       queue_elem& elem = q.front();
-      const int depth    = elem.depth;
+      const size_t depth = elem.depth;
       const size_t left  = elem.left;
       const size_t right = elem.right;
       q.pop();
@@ -167,7 +167,7 @@ namespace tx_tool{
       return -1;
     }
 
-    int nodeNum = -1;
+    size_t nodeNum = -1;
     if (fread(&nodeNum,sizeof(int),1,infp) != 1){
       errorLog << "nodeNum read error" << std::endl;
       fclose(infp);
@@ -199,7 +199,7 @@ namespace tx_tool{
 
   int tx::setArray(void* ptr, size_t readSize){
     keyNum = *(uint*)(ptr);
-    printf("keyNum:%d\n", keyNum);
+    printf("keyNum:%ld\n", keyNum);
     int nodeNum = *(uint*)((uchar*)ptr+readSize-sizeof(uint));
     printf("nodeNum:%d\n", nodeNum);
     edge = (char*)ptr + sizeof(uint);

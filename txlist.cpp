@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
   tx_tool::uint keyNum = t.getKeyNum();
   for (tx_tool::uint i = 0; i < keyNum; ++i){
     string ret;
-    tx_tool::uint len = t.reverseLookup(i, ret);
+    t.reverseLookup(i, ret);
     cout << ret << endl;
   }
 
