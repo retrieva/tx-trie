@@ -81,7 +81,7 @@ namespace tx_tool{
 
     while (!q.empty()){
       queue_elem& elem = q.front();
-      const size_t depth = elem.depth;
+      const int depth = elem.depth;
       const size_t left  = elem.left;
       const size_t right = elem.right;
       q.pop();
@@ -167,7 +167,7 @@ namespace tx_tool{
       return -1;
     }
 
-    size_t nodeNum = -1;
+    int nodeNum = -1;
     if (fread(&nodeNum,sizeof(int),1,infp) != 1){
       errorLog << "nodeNum read error" << std::endl;
       fclose(infp);
