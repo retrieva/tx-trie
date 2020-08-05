@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
       } else {
 	string retKey;
 	size_t retLen = t.reverseLookup(id, retKey);
-	printf("id:%u len:%u lookup:%s\n", id, retLen, retKey.c_str());
+	printf("id:%u len:%lu lookup:%s\n", id, retLen, retKey.c_str());
       }
     }
 

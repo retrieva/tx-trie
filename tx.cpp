@@ -44,7 +44,7 @@ namespace tx_tool{
     sort(wordList.begin(),wordList.end());
     const size_t origWordNum = wordList.size();
     wordList.erase(unique(wordList.begin(),wordList.end()),wordList.end());
-    int keyNum = (int)wordList.size();
+    size_t keyNum = wordList.size();
     if (keyNum != origWordNum){
       resultLog << "shrink word list " << origWordNum << " -> " << keyNum << std::endl;
     } else {
@@ -81,7 +81,7 @@ namespace tx_tool{
 
     while (!q.empty()){
       queue_elem& elem = q.front();
-      const int depth    = elem.depth;
+      const int depth = elem.depth;
       const size_t left  = elem.left;
       const size_t right = elem.right;
       q.pop();
@@ -199,7 +199,7 @@ namespace tx_tool{
 
   int tx::setArray(void* ptr, size_t readSize){
     keyNum = *(uint*)(ptr);
-    printf("keyNum:%d\n", keyNum);
+    printf("keyNum:%ld\n", keyNum);
     int nodeNum = *(uint*)((uchar*)ptr+readSize-sizeof(uint));
     printf("nodeNum:%d\n", nodeNum);
     edge = (char*)ptr + sizeof(uint);
@@ -385,8 +385,7 @@ namespace tx_tool{
   void tx::enumerateAll(const uint pos, const std::string str, std::vector<std::pair<size_t, std::pair<std::string, uint> > >& ret) const{
     const uint nodeId = loud.rank(pos-1,1)-1;
     if (terminal.getBit(nodeId)){
-      std::pair<std::string, uint> tmp(str,  terminal.rank(nodeId,1)-1);
-      ret.push_back(std::make_pair<size_t, std::pair<std::string, uint> >(str.size(), tmp));
+      ret.push_back(std::make_pair(str.size(), std::make_pair(str,  terminal.rank(nodeId,1)-1)));
     }
 
     uint curPos = pos;
