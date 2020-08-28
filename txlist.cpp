@@ -17,9 +17,10 @@
  *      software without specific prior written permission.
  */
 
-#include <string>
 #include <fstream>
+#include <string>
 #include <vector>
+
 #include "tx.hpp"
 
 int main(int argc, char* argv[]){
@@ -30,8 +31,7 @@ int main(int argc, char* argv[]){
 
   tx_tool::tx t;
   if (t.read(argv[1]) == -1){
-    std::cerr << t.getErrorLog()
-	 << "cannot read index " << argv[1] << std::endl;
+    std::cerr << t.getErrorLog() << "cannot read index " << argv[1] << std::endl;
     return -1;
   }
   

@@ -17,9 +17,10 @@
  *      software without specific prior written permission.
  */
 
-#include <string>
 #include <fstream>
+#include <string>
 #include <vector>
+
 #include "tx.hpp"
 
 int main(int argc, char* argv[]){

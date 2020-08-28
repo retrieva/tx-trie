@@ -17,14 +17,16 @@
  *      software without specific prior written permission.
  */
 
-#include <string>
-#include <fstream>
-#include <vector>
+#include <fcntl.h>
+#include <stdio.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <fcntl.h>
-#include <stdio.h>
+
+#include <fstream>
+#include <string>
+#include <vector>
+
 #include "tx.hpp"
 
 int main(int argc, char* argv[]){

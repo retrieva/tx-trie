@@ -17,37 +17,38 @@
  *      software without specific prior written permission.
  */
 
-#include <string>
 #include <fstream>
+#include <string>
 #include <vector>
+
 #include "tx.hpp"
 
 int main(int argc, char* argv[]) {
   if (argc != 2) {
-    fprintf(stderr,"%s index\n",argv[0]);
+    fprintf(stderr, "%s index\n", argv[0]);
     return -1;
   }
 
   std::string indexName(argv[1]);
   tx_tool::tx t1;
-  if (t1.read((indexName+".1").c_str()) == -1) {
+  if (t1.read((indexName + ".1").c_str()) == -1) {
     fprintf(stderr, "%s", t1.getErrorLog().c_str());
-    fprintf(stderr,"cannot read index %s\n", (indexName+".1").c_str());
+    fprintf(stderr, "cannot read index %s\n", (indexName + ".1").c_str());
     return -1;
   }
-  fprintf(stderr,"%s", t1.getResultLog().c_str());
+  fprintf(stderr, "%s", t1.getResultLog().c_str());
 
   tx_tool::tx t2;
-  if (t2.read((indexName+".2").c_str()) == -1) {
+  if (t2.read((indexName + ".2").c_str()) == -1) {
     fprintf(stderr, "%s", t2.getErrorLog().c_str());
-    fprintf(stderr,"cannot read index %s\n", (indexName+".2").c_str());
+    fprintf(stderr, "cannot read index %s\n", (indexName + ".2").c_str());
     return -1;
   }
-  fprintf(stderr,"%s", t2.getResultLog().c_str());
+  fprintf(stderr, "%s", t2.getResultLog().c_str());
 
   std::vector<std::vector<tx_tool::uint> > IDmap;
   {
-    FILE* infp = fopen((indexName+".12").c_str(), "rb");
+    FILE* infp = fopen((indexName + ".12").c_str(), "rb");
     if (infp == NULL) {
       fprintf(stderr, "cannot open %s\n", (indexName + ".12").c_str());
       return -1;
@@ -77,16 +78,16 @@ int main(int argc, char* argv[]) {
   std::string query;
   for (;;) {
     putchar('>');
-    getline(std::cin,query);
+    getline(std::cin, query);
     if (query.size() == 0) break;
 
     // commonPrefixSearch
     for (size_t i = 0; i < query.size(); i++) {
       std::vector<std::string> ret;
       std::vector<tx_tool::uint> retID;
-      const tx_tool::uint retNum = t1.commonPrefixSearch(query.c_str()+i,query.size()-i, ret, retID, 10);
+      const tx_tool::uint retNum = t1.commonPrefixSearch(query.c_str() + i, query.size() - i, ret, retID, 10);
       for (tx_tool::uint i = 0; i < retNum; i++) {
-        printf("%s\t",ret[i].c_str());
+        printf("%s\t", ret[i].c_str());
         for (size_t j = 0; j < IDmap[retID[i]].size(); j++) {
           std::string ret;
           size_t retLen = t2.reverseLookup(IDmap[retID[i]][j], ret);
@@ -96,7 +97,6 @@ int main(int argc, char* argv[]) {
         printf("\n");
       }
     }
-
   }
   return 0;
 }

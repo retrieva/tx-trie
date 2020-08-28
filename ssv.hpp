@@ -21,35 +21,34 @@
 #define __SSV_HPP__
 
 #include <memory.h>
-#include <vector>
-#include <cassert>
 #include <stdio.h>
+
+#include <cassert>
+#include <vector>
 
 namespace tx_tool {
 
-typedef unsigned int uint; // 32bit
-typedef unsigned short ushort; // 16bit
-typedef unsigned char uchar; // 8bit
+typedef unsigned int uint;      // 32bit
+typedef unsigned short ushort;  // 16bit
+typedef unsigned char uchar;    // 8bit
 
-
-#define SSV_BLOCK_SHIFT  (5)
-#define SSV_BLOCK        (1U << SSV_BLOCK_SHIFT)
+#define SSV_BLOCK_SHIFT (5)
+#define SSV_BLOCK (1U << SSV_BLOCK_SHIFT)
 
 #define SSV_LBLOCK_SHIFT (8)
-#define SSV_LBLOCK               (1U << SSV_LBLOCK_SHIFT)
+#define SSV_LBLOCK (1U << SSV_LBLOCK_SHIFT)
 #define SSV_MBLOCK_SHIFT (5)
-#define SSV_MBLOCK       (1U << SSV_MBLOCK_SHIFT)
+#define SSV_MBLOCK (1U << SSV_MBLOCK_SHIFT)
 
 #define logLL (16)
 #define LL (1U << logLL)
 #define logLLL (5)
 #define LLL (1U << logLLL)
-#define logL (logLL-1-5)
+#define logL (logLL - 1 - 5)
 #define L (1U << logL)
 
 class ssv {
-
-public:
+ public:
   ssv(const uint _size = 0);
   ssv(std::vector<bool>& bv);
 
@@ -73,7 +72,7 @@ public:
 
   void build();
 
-  uint rankBuild(const uint t_size); // return oneNum
+  uint rankBuild(const uint t_size);  // return oneNum
   void selectBuild(const uint t_size);
 
   int write(FILE* outfp);
@@ -86,7 +85,7 @@ public:
 
   size_t set_array(void* ptr);
 
-private:
+ private:
   uint popCount(uint r) const;
   uint _rank1(const uint pos) const;
   uint _select1(uint x) const;
@@ -94,7 +93,7 @@ private:
   uint* B;
   uint size;
   uint oneNum;
-  uint blockSize;     // (size+SSV_BLOCK-1)/SSV_BLOCKSZIE
+  uint blockSize;  // (size+SSV_BLOCK-1)/SSV_BLOCKSZIE
 
   uint LBlockSize;
   uint MBlockSize;

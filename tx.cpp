@@ -18,6 +18,7 @@
  */
 
 #include "tx.hpp"
+
 #include "ssv.hpp"
 namespace tx_tool{
 
@@ -319,7 +320,6 @@ namespace tx_tool{
     return (uint)retLen.size();
   }
 
-  
   uint tx::predictiveSearch(const char* str, const size_t len, std::vector<std::string>& ret, std::vector<uint>& retID, const uint limit) const{
     ret.clear();
     retID.clear();
@@ -380,8 +380,6 @@ namespace tx_tool{
     return (uint)retLen.size();
   }
 
-
-
   void tx::enumerateAll(const uint pos, const std::string str, std::vector<std::pair<size_t, std::pair<std::string, uint> > >& ret) const{
     const uint nodeId = loud.rank(pos-1,1)-1;
     if (terminal.getBit(nodeId)){
@@ -420,7 +418,6 @@ namespace tx_tool{
     return loud.select(loud.rank(pos-1, 1), 0);
   }
 
-
   uint tx::reverseLookup(const uint id, std::string& ret) const {
     ret.clear();
     if (id >= keyNum) return 0;
@@ -449,6 +446,5 @@ namespace tx_tool{
   uint tx::getKeyNum() const {
     return keyNum;
   }
-
 
 } // namespace tx_tool
