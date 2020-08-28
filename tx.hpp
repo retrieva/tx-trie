@@ -35,7 +35,7 @@
 
 namespace tx_tool {
 
-#define TX_LIMIT_DEFAULT (0xffffffff)
+const uint64_t TX_LIMIT_DEFAULT = 0xffffffff;
 
 class tx {
  public:

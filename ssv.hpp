@@ -32,20 +32,13 @@ typedef unsigned int uint;      // 32bit
 typedef unsigned short ushort;  // 16bit
 typedef unsigned char uchar;    // 8bit
 
-#define SSV_BLOCK_SHIFT (5)
-#define SSV_BLOCK (1U << SSV_BLOCK_SHIFT)
+const uint SSV_BLOCK_SHIFT = 5;
+const uint SSV_BLOCK = (1U << SSV_BLOCK_SHIFT);
 
-#define SSV_LBLOCK_SHIFT (8)
-#define SSV_LBLOCK (1U << SSV_LBLOCK_SHIFT)
-#define SSV_MBLOCK_SHIFT (5)
-#define SSV_MBLOCK (1U << SSV_MBLOCK_SHIFT)
-
-#define logLL (16)
-#define LL (1U << logLL)
-#define logLLL (5)
-#define LLL (1U << logLLL)
-#define logL (logLL - 1 - 5)
-#define L (1U << logL)
+const uint SSV_LBLOCK_SHIFT = 8;
+const uint SSV_LBLOCK = (1U << SSV_LBLOCK_SHIFT);
+const uint SSV_MBLOCK_SHIFT = 5;
+const uint SSV_MBLOCK = (1U << SSV_MBLOCK_SHIFT);
 
 class ssv {
  public:
