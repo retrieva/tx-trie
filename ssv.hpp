@@ -17,8 +17,8 @@
  *      software without specific prior written permission.
  */
 
-#ifndef __SSV_HPP__
-#define __SSV_HPP__
+#ifndef TXTRIE_SSV_HPP_
+#define TXTRIE_SSV_HPP_
 
 #include <memory.h>
 #include <stdio.h>
@@ -108,4 +108,4 @@ class ssv {
 
 }  // namespace tx_tool
 
-#endif
+#endif  // TXTRIE_SSV_HPP_

@@ -17,8 +17,8 @@
  *      software without specific prior written permission.
  */
 
-#ifndef __TX_HPP__
-#define __TX_HPP__
+#ifndef TXTRIE_TX_HPP_
+#define TXTRIE_TX_HPP_
 
 #include <limits.h>
 #include <sys/stat.h>
@@ -78,4 +78,4 @@ class tx {
 
 }  // namespace tx_tool
 
-#endif  // __TX_HPP__
+#endif  // TXTRIE_SSV_HPP_
