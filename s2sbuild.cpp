@@ -17,9 +17,10 @@
  *      software without specific prior written permission.
  */
 
-#include <string>
 #include <fstream>
+#include <string>
 #include <vector>
+
 #include "tx.hpp"
 
 int createIndex(std::vector<std::string>& wordList, const std::string& indexName){
@@ -61,7 +62,7 @@ int main(int argc, char* argv[]){
       }
       wordList1.push_back(line.substr(0, p));
       wordList2.push_back(line.substr(p+1));
-      wordListPair.push_back(make_pair(line.substr(0, p), line.substr(p+1)));
+      wordListPair.push_back(std::make_pair(line.substr(0, p), line.substr(p+1)));
       lineno++;
     }
   }
@@ -87,7 +88,6 @@ int main(int argc, char* argv[]){
     return -1;
   }
 
-  
   std::vector< std::vector<tx_tool::uint> > IDmap(wordListPair.size());
   for (size_t i = 0; i < wordListPair.size(); i++){
     size_t retLen1 = 0;

@@ -1,10 +1,10 @@
-/* 
+/*
  *  Copyright (c) 2007-2010 Daisuke Okanohara
- * 
+ *
  *   Redistribution and use in source and binary forms, with or without
  *   modification, are permitted provided that the following conditions
  *   are met:
- * 
+ *
  *   1. Redistributions of source code must retain the above Copyright
  *      notice, this list of conditions and the following disclaimer.
  *
@@ -17,96 +17,88 @@
  *      software without specific prior written permission.
  */
 
-#ifndef __SSV_HPP__
-#define __SSV_HPP__
+#ifndef TXTRIE_SSV_HPP_
+#define TXTRIE_SSV_HPP_
 
 #include <memory.h>
-#include <vector>
-#include <cassert>
 #include <stdio.h>
 
-namespace tx_tool{
+#include <cassert>
+#include <vector>
 
-  typedef unsigned int uint; // 32bit
-  typedef unsigned short ushort; // 16bit
-  typedef unsigned char uchar; // 8bit
+namespace tx_tool {
 
+typedef unsigned int uint;      // 32bit
+typedef unsigned short ushort;  // 16bit
+typedef unsigned char uchar;    // 8bit
 
-#define SSV_BLOCK_SHIFT  (5)
-#define SSV_BLOCK        (1U << SSV_BLOCK_SHIFT)
+const uint SSV_BLOCK_SHIFT = 5;
+const uint SSV_BLOCK = (1U << SSV_BLOCK_SHIFT);
 
-#define SSV_LBLOCK_SHIFT (8)
-#define SSV_LBLOCK		 (1U << SSV_LBLOCK_SHIFT)
-#define SSV_MBLOCK_SHIFT (5)
-#define SSV_MBLOCK       (1U << SSV_MBLOCK_SHIFT)
+const uint SSV_LBLOCK_SHIFT = 8;
+const uint SSV_LBLOCK = (1U << SSV_LBLOCK_SHIFT);
+const uint SSV_MBLOCK_SHIFT = 5;
+const uint SSV_MBLOCK = (1U << SSV_MBLOCK_SHIFT);
 
-#define logLL (16)
-#define LL (1U << logLL)
-#define logLLL (5)
-#define LLL (1U << logLLL)
-#define logL (logLL-1-5)
-#define L (1U << logL)
+class ssv {
+ public:
+  ssv(const uint _size = 0);
+  ssv(std::vector<bool>& bv);
 
-  class ssv{
+  int resize(const uint _size);
 
-  public:
-    ssv(const uint _size = 0);
-    ssv(std::vector<bool>& bv);
+  void free();
 
-    int resize(const uint _size);
+  ~ssv();
 
-    void free();
+  inline uint getBit(const uint pos) const {
+    return (B[pos / SSV_BLOCK] >> (pos % SSV_BLOCK)) & 1;
+  }
 
-    ~ssv();
+  uint getBits(const uint pos, uint width) const;
+  void setBits(const uint pos, const uint width, const uint x);
+  uint rank(uint pos, const uint bit) const;
+  uint select(uint pos, const uint bit) const;
 
-    inline uint getBit(const uint pos) const {
-      return (B[pos / SSV_BLOCK] >> (pos % SSV_BLOCK)) & 1;
-    }
+  void setBit(uint pos, uint x);
+  uint getAllocate() const;
 
-    uint getBits(const uint pos, uint width) const;
-    void setBits(const uint pos, const uint width, const uint x);
-    uint rank(uint pos, const uint bit) const;
-    uint select(uint pos, const uint bit) const;
+  void build();
 
-    void setBit(uint pos, uint x);
-    uint getAllocate() const;
+  uint rankBuild(const uint t_size);  // return oneNum
+  void selectBuild(const uint t_size);
 
-    void build();
+  int write(FILE* outfp);
+  int read(FILE* infp);
 
-    uint rankBuild(const uint t_size); // return oneNum
-    void selectBuild(const uint t_size);
+  uint getBlock(const uint blockPos) const;
+  void setBlock(const uint blockPos, const uint x);
+  uint getSize() const;
+  uint getBlockSize() const;
 
-    int write(FILE* outfp);
-    int read(FILE* infp);
+  size_t set_array(void* ptr);
 
-    uint getBlock(const uint blockPos) const;
-    void setBlock(const uint blockPos, const uint x);
-    uint getSize() const;
-    uint getBlockSize() const;
+ private:
+  uint popCount(uint r) const;
+  uint _rank1(const uint pos) const;
+  uint _select1(uint x) const;
+  uint _select0(uint x) const;
+  uint* B;
+  uint size;
+  uint oneNum;
+  uint blockSize;  // (size+SSV_BLOCK-1)/SSV_BLOCKSZIE
 
-    size_t set_array(void* ptr);
+  uint LBlockSize;
+  uint MBlockSize;
 
-  private:
-    uint popCount(uint r) const;
-    uint _rank1(const uint pos) const;
-    uint _select1(uint x) const;
-    uint _select0(uint x) const;
-    uint* B;
-    uint size;
-    uint oneNum;
-    uint blockSize;	// (size+SSV_BLOCK-1)/SSV_BLOCKSZIE
+  // for rank
+  uint* levelL;
+  uchar* levelM;
 
-    uint LBlockSize;
-    uint MBlockSize;
+  bool isBuild;
+  bool no_delete;
+};
 
-    // for rank
-    uint* levelL;
-    uchar* levelM;
+}  // namespace tx_tool
 
-    bool isBuild;
-    bool no_delete;
-  };
-
-}
-
-#endif
+#endif  // TXTRIE_SSV_HPP_
