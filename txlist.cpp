@@ -22,26 +22,24 @@
 #include <vector>
 #include "tx.hpp"
 
-using namespace std;
-
 int main(int argc, char* argv[]){
   if (argc != 2){
-    cerr << argv[1] << " index" << endl;
+    std::cerr << argv[1] << " index" << std::endl;
     return -1;
   }
 
   tx_tool::tx t;
   if (t.read(argv[1]) == -1){
-    cerr << t.getErrorLog()
-	 << "cannot read index " << argv[1] << endl;
+    std::cerr << t.getErrorLog()
+	 << "cannot read index " << argv[1] << std::endl;
     return -1;
   }
   
   tx_tool::uint keyNum = t.getKeyNum();
   for (tx_tool::uint i = 0; i < keyNum; ++i){
-    string ret;
+    std::string ret;
     t.reverseLookup(i, ret);
-    cout << ret << endl;
+    std::cout << ret << std::endl;
   }
 
   return 0;

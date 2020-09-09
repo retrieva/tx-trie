@@ -22,8 +22,6 @@
 #include <vector>
 #include "tx.hpp"
 
-using namespace std;
-
 int main(int argc, char* argv[]){
   if (argc != 2){
     fprintf(stderr,"%s index\n",argv[0]);
@@ -38,10 +36,10 @@ int main(int argc, char* argv[]){
   }
   fprintf(stderr,"%s", t.getResultLog().c_str());
 
-  string query;
+  std::string query;
   for (;;){
     putchar('>');
-    getline(cin,query);
+    getline(std::cin,query);
     if (query.size() == 0) break;
 
     printf("query:%s\n", query.c_str());
@@ -55,7 +53,7 @@ int main(int argc, char* argv[]){
       if (id == tx_tool::tx::NOTFOUND){
 	printf("not found\n");
       } else {
-	string retKey;
+	std::string retKey;
 	size_t retLen = t.reverseLookup(id, retKey);
 	printf("id:%u len:%lu lookup:%s\n", id, retLen, retKey.c_str());
       }
@@ -63,18 +61,18 @@ int main(int argc, char* argv[]){
 
     // expandSearch
     {
-      vector<string> ret;
+      std::vector<std::string> ret;
       const tx_tool::uint retNum = t.expandSearch(query.c_str(),query.size(), ret, 10);
       printf("expansionSearch %u\n", retNum);
-      for (vector<string>::const_iterator it = ret.begin(); it != ret.end(); it++){
+      for (std::vector<std::string>::const_iterator it = ret.begin(); it != ret.end(); it++){
 	printf("%s\n",it->c_str());
       }
     }
 
     // commonPrefixSearch
     {
-      vector<string> ret;
-      vector<tx_tool::uint> retID;
+      std::vector<std::string> ret;
+      std::vector<tx_tool::uint> retID;
       const tx_tool::uint retNum = t.commonPrefixSearch(query.c_str(),query.size(), ret, retID, 10);
       printf("commonPrefixSearch %u\n", retNum);
       for (size_t i = 0; i < ret.size(); i++){
@@ -84,8 +82,8 @@ int main(int argc, char* argv[]){
 
     // predictiveSearch
     {
-      vector<string> ret;
-      vector<tx_tool::uint> retID;
+      std::vector<std::string> ret;
+      std::vector<tx_tool::uint> retID;
       const tx_tool::uint retNum = t.predictiveSearch(query.c_str(),query.size(), ret, retID, 10);
       printf("predictiveSearch %u\n", retNum);
       for (size_t i = 0; i < ret.size(); i++){

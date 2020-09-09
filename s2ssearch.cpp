@@ -22,15 +22,13 @@
 #include <vector>
 #include "tx.hpp"
 
-using namespace std;
-
 int main(int argc, char* argv[]){
   if (argc != 2){
     fprintf(stderr,"%s index\n",argv[0]);
     return -1;
   }
 
-  string indexName(argv[1]);
+  std::string indexName(argv[1]);
   tx_tool::tx t1;
   if (t1.read((indexName+".1").c_str()) == -1){
     fprintf(stderr, "%s", t1.getErrorLog().c_str());
@@ -76,21 +74,21 @@ int main(int argc, char* argv[]){
     }
   }
 
-  string query;
+  std::string query;
   for (;;){
     putchar('>');
-    getline(cin,query);
+    getline(std::cin,query);
     if (query.size() == 0) break;
 		
     // commonPrefixSearch
     for (size_t i = 0; i < query.size(); i++){
-      vector<string> ret;
-      vector<tx_tool::uint> retID;
+      std::vector<std::string> ret;
+      std::vector<tx_tool::uint> retID;
       const tx_tool::uint retNum = t1.commonPrefixSearch(query.c_str()+i,query.size()-i, ret, retID, 10);
       for (tx_tool::uint i = 0; i < retNum; i++){
 	printf("%s\t",ret[i].c_str());
 	for (size_t j = 0; j < IDmap[retID[i]].size(); j++){
-	  string ret;
+	  std::string ret;
 	  size_t retLen = t2.reverseLookup(IDmap[retID[i]][j], ret);
 	  if (retLen == 0) continue;
 	  printf("%s ", ret.c_str());

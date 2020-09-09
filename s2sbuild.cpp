@@ -61,7 +61,7 @@ int main(int argc, char* argv[]){
       }
       wordList1.push_back(line.substr(0, p));
       wordList2.push_back(line.substr(p+1));
-      wordListPair.push_back(make_pair(line.substr(0, p), line.substr(p+1)));
+      wordListPair.push_back(std::make_pair(line.substr(0, p), line.substr(p+1)));
       lineno++;
     }
   }
